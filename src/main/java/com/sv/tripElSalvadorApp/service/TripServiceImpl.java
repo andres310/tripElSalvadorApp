@@ -84,4 +84,9 @@ public class TripServiceImpl implements ITripService{
         return this.lista;
     }
     
+    @Override
+    public void guardar(Trip trip) {
+        lista = buscarTodos();
+        lista.add(trip);
+    }
 }

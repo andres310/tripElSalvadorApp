@@ -26,7 +26,8 @@ public class CategoriaTripController {
 	
 	//@RequestMapping(value = "/save", method = RequestMethod.POST)
 	@PostMapping("/save")
-	public String guardar(@RequestParam("nombre") String nombre, @RequestParam("descripcion") String descripcion) {
+	public String guardar(@RequestParam("nombre") String nombre
+						, @RequestParam("descripcion") String descripcion) {
 		System.out.println("Nombre Categoria: " + nombre);
 		System.out.println("Descripcion: " + descripcion);
 		return "categoriasTrip/listCategoria";
