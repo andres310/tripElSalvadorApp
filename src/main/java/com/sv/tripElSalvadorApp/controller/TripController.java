@@ -2,6 +2,7 @@ package com.sv.tripElSalvadorApp.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -32,6 +33,13 @@ public class TripController {
 
 	@Autowired
 	private ITripService servicesTrip;
+
+	@GetMapping("/index")
+	public String mostrarIndex(Model model) {
+		List<Trip> lista = servicesTrip.buscarTodos();
+		model.addAttribute("trips", lista);
+		return "trips/listTrips";
+	}
 
 	@GetMapping("/create")
 	public String crear() {
