@@ -16,18 +16,18 @@ public class CategoriaServiceImpl implements ICategoriaService {
 
         Categoria categoria1 = new Categoria();
         categoria1.setId(1);
-        categoria1.setNombre("Caminatas");
-        categoria1.setDescripcion("Caminar un rato");
+        categoria1.setNombre("En la playa");
+        categoria1.setDescripcion("Servicios de entretenimiento en la playa");
 
         Categoria categoria2 = new Categoria();
         categoria2.setId(2);
-        categoria2.setNombre("Categoria222222");
-        categoria2.setDescripcion("Es la categoria 2");
+        categoria2.setNombre("En la ciudad");
+        categoria2.setDescripcion("Clasificacion de trips en la ciudad");
 
         Categoria categoria3 = new Categoria();
         categoria3.setId(3);
-        categoria3.setNombre("333categoria33");
-        categoria3.setDescripcion("es la categoria 3!");
+        categoria3.setNombre("En la montaña");
+        categoria3.setDescripcion("Interesantes actividades en la montaña");
         
         lista.add(categoria1);
         lista.add(categoria2);

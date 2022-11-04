@@ -18,30 +18,7 @@
 
   <body>
 
-    <header>
-      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">TripApp</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link active" href="#">Inicio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Menu 1</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Menu 2</a>
-            </li>          
-          </ul>  
-          <a class="btn btn-primary" href="#">Ingresar</a>&nbsp;
-          <a class="btn btn-primary" href="#">Registrarse</a>
-        </div>
-      </nav>
-    </header>
+    <header th:insert="fragments/menu :: menu-principal"></header>
 
     <main role="main">     
       <hr>
@@ -51,24 +28,23 @@
           <h4 class="card-header"><strong>Datos del Trip</strong></h4>              
           <div class="card-body">
             <form th:action="@{/trips/save}" method="post" th:object="${trip}">
-            <!-- <form th:action="@{/trips/save}" method="post" th:object="${trip}"> -->
-              <!-- <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert">
+              <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert">
                 Por favor corrija los siguientes errores:
                 <ul>
                   <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
                 </ul>
-              </div> -->
+              </div>
               <div class="row">
                 <div class="col-md-3"> 
                   <div class="form-group">
                     <label for="nombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Titulo del trip" required="required">
+                    <input type="text" class="form-control" th:field="*{nombre}" id="nombre" name="nombre" placeholder="Titulo del trip" required="required">
                   </div>
                 </div>
                 <div class="col-md-9"> 
                   <div class="form-group">
                     <label for="descripcion">Descripción</label>
-                    <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Breve descripcion del trip" required="required">
+                    <input type="text" class="form-control" th:field="*{descripcion}" id="descripcion" name="descripcion" placeholder="Breve descripcion del trip" required="required">
                   </div> 
                 </div>    
               </div>    
@@ -76,11 +52,8 @@
                 <div class="col-md-3"> 
                   <div class="form-group">
                     <label for="categoria">Categoría</label>
-                    <select class="form-control" name="categoria" id="categoria">
-                      <option value="1">En la montaña</option>
-                      <option value="2">En la Ciudad</option>
-                      <option value="3">En los pueblos</option>
-                      <option value="4">En las playas</option>
+                    <select class="form-control" name="categoria" th:field="*{categoria}" id="categoria">
+                      <option th:each="categoria : ${categorias}" th:value="${categoria.id}" th:text="${categoria.nombre}"></option>
                     </select>
                   </div>
                 </div>
@@ -88,27 +61,29 @@
                 <div class="col-md-3"> 
                   <div class="form-group">
                     <label for="estatus">Estatus</label>
-                    <select class="form-control" name="estatus" id="estatus">
-					           <option value="Creada">Creada</option>
-                      <option value="Aprobada">Aprobada</option>
-                      <option value="Eliminada">Eliminada</option>	
+                    <select class="form-control" th:field="*{estatus}" name="estatus" id="estatus">
+<!--                      <option value="Creada">Creada</option>-->
+<!--                      <option value="Aprobada">Aprobada</option>-->
+<!--                      <option value="Eliminada">Eliminada</option>	-->
+                      <option value="1">Creada</option>
+                      <option value="0">Eliminada</option>
                     </select>
                   </div>
                 </div>
                 <div class="col-md-3"> 
                   <div class="form-group">
                     <label for="fecha">Fecha de Publicación</label>
-                    <input type="text" class="form-control" name="fecha" id="fecha" placeholder="Fecha de publicacion" required="required">
+                    <input type="text" class="form-control" name="fecha" th:field="*{fecha}" id="fecha" placeholder="Fecha de publicacion" required="required">
                   </div>  
                 </div>
                 <div class="col-md-3"> 
                   <div class="form-check">
                     <label class="form-check-label" for="destacado0"></label><br>
-                    <input class="form-check-input" type="radio" name="destacado" id="destacado" value="1" checked="checked">
+                    <input class="form-check-input" type="radio" th:field="*{destacado}" name="destacado" id="destacado0" value="1" checked="checked">
                     <label class="form-check-label" for="destacado1">Destacado</label>
                   </div>
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="destacado" id="destacado" value="0">
+                    <input class="form-check-input" type="radio" th:field="*{destacado}" name="destacado" id="destacado2" value="0">
                     <label class="form-check-label" for="destacado2">No Destacado</label>
                   </div>
                 </div>
@@ -117,7 +92,7 @@
                 <div class="col-md-3"> 
                   <div class="form-group">
                     <label for="costo">Costo del Trip</label>
-                    <input type="text" class="form-control" name="costo" id="costo" placeholder="Costo del trip." required="required">
+                    <input type="text" class="form-control" name="costo" th:field="*{costo}" id="costo" placeholder="Costo del trip." required="required">
                   </div>
                 </div>
                 <div class="col-md-3"> 
@@ -132,7 +107,7 @@
                 <div class="col-md-9"> 
                   <div class="form-group">
                     <label for="detalles"><strong>Detalles</strong></label>          
-                    <textarea class="form-control" name="detalles" id="detalles" rows="7"></textarea>
+                    <textarea class="form-control" name="detalles" th:field="*{detalles}" id="detalles" rows="7"></textarea>
                   </div> 
                 </div> 
                 <div class="col-md-3">
@@ -170,16 +145,13 @@
           $("#fecha").datepicker({dateFormat: 'dd-mm-yy'});
         }
       );
-      
-      /*
+
       tinymce.init({
           selector: '#detalles',
           plugins: "textcolor, table lists code",
           toolbar: " undo redo | bold italic | alignleft aligncenter alignright alignjustify \n\
                     | bullist numlist outdent indent | forecolor backcolor table code"
       });
-      
-      */
       
     </script>
   </body>

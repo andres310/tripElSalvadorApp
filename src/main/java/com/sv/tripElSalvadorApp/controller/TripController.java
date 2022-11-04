@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.sv.tripElSalvadorApp.service.ICategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sv.tripElSalvadorApp.model.Trip;
 import com.sv.tripElSalvadorApp.service.ITripService;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/trips")
@@ -34,6 +36,10 @@ public class TripController {
 	@Autowired
 	private ITripService servicesTrip;
 
+	// Sirve para el formulario de creación para vincular las categorias
+	@Autowired
+	private ICategoriaService categoriaService;
+
 	@GetMapping("/index")
 	public String mostrarIndex(Model model) {
 		List<Trip> lista = servicesTrip.buscarTodos();
@@ -42,12 +48,13 @@ public class TripController {
 	}
 
 	@GetMapping("/create")
-	public String crear() {
+	public String crear(Trip trip ,Model model) {
+		model.addAttribute("categorias", categoriaService.buscarTodas());
 		return "trips/formTrip";
 	}
 
 	@PostMapping("/save")
-	public String guardar(Trip trip, BindingResult result) {
+	public String guardar(Trip trip, BindingResult result, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
 			for (ObjectError error : result.getAllErrors()) {
 				System.out.println(error.getDefaultMessage());
@@ -56,8 +63,9 @@ public class TripController {
 		}
 		servicesTrip.guardar(trip);
 		System.out.println("Trip: " + trip);
+		attributes.addFlashAttribute("msg", "Registro Guardado");
 
-		return "trips/listTrips";
+		return "redirect:/trips/index";
 	}
 
 	@GetMapping("/delete")

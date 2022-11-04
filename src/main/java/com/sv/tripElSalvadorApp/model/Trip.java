@@ -10,12 +10,57 @@ public class Trip {
 	private Double costo;
 	private Integer destacado;
 	private String imagen="no-image.png";
-	
+	private String detalles;
+	private Categoria categoria;
+	private Integer estatus;
+
+	public Integer getEstatus() {
+		return estatus;
+	}
+
+	public void setEstatus(Integer estatus) {
+		this.estatus = estatus;
+	}
+
+
+	public String getDetalles() {
+		return detalles;
+	}
+
+	public void setDetalles(String detalles) {
+		this.detalles = detalles;
+	}
+
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
 	@Override
 	public String toString() {
-		return "Trip [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", fecha=" + fecha
-				+ ", costo=" + costo + ", destacado=" + destacado + "]";
+		return "Trip{" +
+				"id=" + id +
+				", nombre='" + nombre + '\'' +
+				", descripcion='" + descripcion + '\'' +
+				", fecha=" + fecha +
+				", costo=" + costo +
+				", destacado=" + destacado +
+				", imagen='" + imagen + '\'' +
+				", detalles='" + detalles + '\'' +
+				", categoria=" + categoria +
+				", estatus=" + estatus +
+				'}';
 	}
+
+	// Constructor
+	public Trip() {
+		setEstatus(1);
+	}
+
 
 	public Integer getId() {
 		return id;
@@ -73,5 +118,5 @@ public class Trip {
 		this.imagen = imagen;
 	}
 
-	
+
 }
